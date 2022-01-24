@@ -24,9 +24,9 @@ Extra UI TODO's
 
 ## 🚩 **Challenge 3: Minimum Viable Exchange**
 
-This challenge will provide a tutorial to help you build/understand a simple decentralized exchange, with one token-pair (ERC20 BALLOONS ($BAL) and ETH). This repo is an updated version of the [original tutorial](https://medium.com/@austin_48503/%EF%B8%8F-minimum-viable-exchange-d84f30bd0c90) and challenge repos before it. Please read the intro for a background on what we are building first! **This repo has solutions in it for now, but the challenge is to write the smart contracts yourself of course!**
+This challenge will help you build/understand a simple decentralized exchange, with one token-pair (ERC20 BALLOONS ($BAL) and ETH). This repo is an updated version of the [original tutorial](https://medium.com/@austin_48503/%EF%B8%8F-minimum-viable-exchange-d84f30bd0c90) and challenge repos before it. Please read the intro for a background on what we are building first! **This repo has solutions in it for now, but the challenge is to write the smart contracts yourself of course!**
 
-There is also a [Youtube video](https://www.youtube.com/watch?v=eP5w6Ger1EQ&t=364s&ab_channel=SimplyExplained). that may help you understand the concepts covered within this challenge too:
+There is also a [Youtube video](https://www.youtube.com/watch?v=eP5w6Ger1EQ&t=364s&ab_channel=SimplyExplained) that may help you understand the concepts covered within this challenge too:
 
 This branch was heavily based off of this [archived feature branch](https://github.com/scaffold-eth/scaffold-eth-challenges/tree/challenge-5-dex).
 
@@ -146,7 +146,7 @@ Now when we `yarn deploy --reset` then our contract should be initialized as soo
 
 ### ⛳️ **Checkpoint 3: Price** 🤑
 
-This portion the tutorial is directly from the [original tutorial](https://medium.com/@austin_48503/%EF%B8%8F-minimum-viable-exchange-d84f30bd0c90) "Price" section. It outlines the general understanding of the DEX's pricing model.
+This section is directly from the [original tutorial](https://medium.com/@austin_48503/%EF%B8%8F-minimum-viable-exchange-d84f30bd0c90) "Price" section. It outlines the general details of the DEX's pricing model.
 
 Now that our contract holds reserves of both ETH and tokens, we want to use a simple formula to determine the exchange rate between the two.
 Let’s start with the formula `x * y = k` where `x` and `y` are the reserves:
@@ -323,7 +323,7 @@ Let’s create two new functions that let us deposit and withdraw liquidity. How
 
 ### ⛳️ **Checkpoint 6: UI** 🖼
 
-Cool beans! Your front-end should be showing the below at this point!
+Cool beans! Your front-end should be showing something like this now!
 
 <img src="images/ui-screenshot-final.png" width = "700">
 
