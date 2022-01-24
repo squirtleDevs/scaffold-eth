@@ -35,23 +35,21 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   });
 
   const dex = await ethers.getContract("DEX", deployer);
-
-  // paste in your front-end address here to get 10 balloons on deploy:
-  await balloons.transfer(
-    "0xe64bAAA0F6012A0F320a262cFe39289bA6cBd0f2",
-    "" + 10 * 10 ** 18
-  );
-
-  // uncomment to init DEX on deploy:
-  console.log(
-    "Approving DEX (" + dex.address + ") to take Balloons from main account..."
-  );
-  // If you are going to the testnet make sure your deployer account has enough ETH
-  await balloons.approve(dex.address, ethers.utils.parseEther("100"));
-  console.log("INIT exchange...");
-  await dex.init(ethers.utils.parseEther("5"), {
-    value: ethers.utils.parseEther("5"),
-    gasLimit: 200000,
-  });
+  // // paste in your front-end address here to get 10 balloons on deploy:
+  // await balloons.transfer(
+  //   "0xe64bAAA0F6012A0F320a262cFe39289bA6cBd0f2",
+  //   "" + 10 * 10 ** 18
+  // );
+  // // uncomment to init DEX on deploy:
+  // console.log(
+  //   "Approving DEX (" + dex.address + ") to take Balloons from main account..."
+  // );
+  // // If you are going to the testnet make sure your deployer account has enough ETH
+  // await balloons.approve(dex.address, ethers.utils.parseEther("100"));
+  // console.log("INIT exchange...");
+  // await dex.init(ethers.utils.parseEther("5"), {
+  //   value: ethers.utils.parseEther("5"),
+  //   gasLimit: 200000,
+  // });
 };
 module.exports.tags = ["Balloons", "DEX"];

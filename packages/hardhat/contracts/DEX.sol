@@ -92,12 +92,9 @@ contract DEX {
      * @notice sends Ether to DEX in exchange for $BAL
      */
     function ethToToken() public payable returns (uint256 tokenOutput) {
-        //  require(msg.value > 0, "ethToToken: can't trade 0");
         uint256 ethReserve = address(this).balance.sub(msg.value);
         uint256 token_reserve = token.balanceOf(address(this));
         uint256 tokenOutput = price(msg.value, ethReserve, token_reserve);
-
-        //  totalLiquidity = totalLiquidity.sub(tokenOutput); //update totalLiquidity? I guess you don't because even though liquidity is changing... it isn't in a macro-scale? We still have the same amount of liquidity in "total" but just different asset ratios.
         require(token.transfer(msg.sender, tokenOutput), "ethToToken(): reverted swap.");
         return tokenOutput;
         emit EthToTokenSwap(msg.sender, tokenOutput, msg.value);
@@ -107,12 +104,8 @@ contract DEX {
      * @notice sends $BAL tokens to DEX in exchange for Ether
      */
     function tokenToEth(uint256 tokenInput) public returns (uint256 ethOutput) {
-        //  require(tokenInput > 0, "tokenToEth: can't trade 0");
         uint256 token_reserve = token.balanceOf(address(this));
-
         uint256 ethOutput = price(tokenInput, token_reserve, address(this).balance);
-
-        //  totalLiquidity = totalLiquidity.add(tokenInput); //update totalLiquidity
         require(token.transferFrom(msg.sender, address(this), tokenInput), "tokenToEth(): reverted swap.");
         (bool sent, ) = msg.sender.call{ value: ethOutput }("");
         require(sent, "tokenToEth: revert in transferring eth to you!");
