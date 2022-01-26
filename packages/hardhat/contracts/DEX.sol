@@ -19,6 +19,11 @@ contract DEX {
     /* ========== EVENTS ========== */
 
     /**
+     * @notice Emitted when init() transacted
+     */
+     event InitCalled(uint256 liquidity);
+
+    /**
      * @notice Emitted when ethToToken() swap transacted
      */
     event EthToTokenSwap(address _swapper, uint256 tokenOutput, uint256 ethInput);
@@ -72,6 +77,7 @@ contract DEX {
         liquidity[msg.sender] = totalLiquidity;
         require(token.transferFrom(msg.sender, address(this), tokens), "DEX: init - transfer did not transact");
         return totalLiquidity;
+        emit InitCalled(totalLiquidity);
     }
 
     /**
@@ -102,6 +108,7 @@ contract DEX {
 
     /**
      * @notice sends $BAL tokens to DEX in exchange for Ether
+     * NOTE: if you try putting in 0 tokens, it will revert either due to erc20, or due to price() returning 0.
      */
     function tokenToEth(uint256 tokenInput) public returns (uint256 ethOutput) {
         uint256 token_reserve = token.balanceOf(address(this));
@@ -141,6 +148,7 @@ contract DEX {
 
     /**
      * @notice allows withdrawal of $BAL and $ETH from liquidity pool
+     * NOTE: with this current code, the msg caller could end up getting very little back if the liquidity is super low in the pool. I guess they could see that with the UI.
      */
     function withdraw(uint256 amount) public returns (uint256 eth_amount, uint256 token_amount) {
         uint256 ethReserve = address(this).balance;

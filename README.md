@@ -20,6 +20,10 @@ Extra UI TODO's
 5. Display how much liquidity I have am providing / how much locked up I have of each asset or something
 6. Formalize document and repo for an official challenge for scaffold-eth community / program
 
+DEX.test.js TODO:
+
+7. See TODO: in DEX.test.js
+
 </details>
 
 ## 🚩 **Challenge 3: Minimum Viable Exchange**
