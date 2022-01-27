@@ -86,7 +86,7 @@ describe("🚩 Challenge 3: ⚖️ 🪙 Simple DEX", function () {
           });
         await expect(tx2).emit(balloonsContract, "Transfer");
 
-        // TODO: get revert test to work
+        // TODO: SYNTAX - get revert test to work
         // let tx3 = await dexContract
         //   .connect(deployer.signer)
         //   .init(ethers.utils.parseEther("5"), {
@@ -101,7 +101,7 @@ describe("🚩 Challenge 3: ⚖️ 🪙 Simple DEX", function () {
           let tx1 = await dexContract.connect(deployer.signer).ethToToken({
             value: ethers.utils.parseEther("1"),
           });
-          // TODO: Figure out how to read eth balance of dex contract and to compare it against the eth sent in via this tx. Also figure out why/how to read the event that should be emitted with this too.
+          // TODO: SYNTAX - Figure out how to read eth balance of dex contract and to compare it against the eth sent in via this tx. Also figure out why/how to read the event that should be emitted with this too.
 
           expect(
             await ethers.BigNumber.from(dexContract.address.balance)
@@ -129,7 +129,7 @@ describe("🚩 Challenge 3: ⚖️ 🪙 Simple DEX", function () {
             .connect(deployer.signer)
             .tokenToEth(ethers.utils.parseEther("1"));
 
-          //TODO: write an expect that takes into account the emitted event from tokenToETH.
+          //TODO: SYNTAX -  write an expect that takes into account the emitted event from tokenToETH.
         });
 
         it("Should send less tokens after the first trade (tokenToEach() called)", async function () {
@@ -140,7 +140,7 @@ describe("🚩 Challenge 3: ⚖️ 🪙 Simple DEX", function () {
             .connect(deployer.signer)
             .tokenToEth(ethers.utils.parseEther("1"));
 
-          //TODO: write an expect that takes into account the emitted event from tokenToETH.
+          //TODO: SYNTAX - write an expect that takes into account the emitted event from tokenToETH.
         });
       });
 
@@ -152,7 +152,7 @@ describe("🚩 Challenge 3: ⚖️ 🪙 Simple DEX", function () {
               value: ethers.utils.parseEther("5"),
             })
           );
-          // TODO: Write expect() assessing changed liquidty within the pool. Should have an emitted event!
+          // TODO: SYNTAX - Write expect() assessing changed liquidty within the pool. Should have an emitted event!
         });
       });
 
@@ -163,7 +163,7 @@ describe("🚩 Challenge 3: ⚖️ 🪙 Simple DEX", function () {
             .connect(deployer.signer)
             .withdraw(ethers.utils.parseEther("1"));
 
-          // TODO: Write expect() assessing changed liquidty within the pool. Should have an emitted event!
+          // TODO: SYNTAX - Write expect() assessing changed liquidty within the pool. Should have an emitted event!
         });
       });
     });
