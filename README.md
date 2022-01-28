@@ -1,31 +1,5 @@
 # 🏗 scaffold-eth | 🏰 BuidlGuidl
 
-## 🚨 STEVE/M00NPAPI/WHOEVER TODO: Aspects to Check Before Finalizing
-
-<details markdown='1'><summary>👨🏻‍🏫 TO DO List</summary>
-
-1. Front End looks like it is being mainly derived from DEX.jsx (which was taken from an old repo - challenge-3-dex from scaffold eth repo). We simply connected and routed what was needed and it started to work. Since it is importing from there, my guess is that when the smart contracts are blank, it will display the front end (buttons and all). If you click on a button that you know doesn't line up with a function from the smart contracts, then an error will arise in your webpage. **Could be worthwhile to do a better deep dive into front-end with someone who knows front-end** This may be why it is a bit clunky too!
-
-2. The liquidity mapping is not displaying properly in debug or the front end for some reason. It was working before we started working on the front end. See this line of code. I'm guessing that if it was removed, that the liquidity may start to display right at least in the debug tab. The odd thing is that sometimes it works, and other times it does not.
-
-```
-<Divider> Liquidity ({liquidity ? ethers.utils.formatEther(liquidity) : "none"}):</Divider>
-```
-
-3. Archive the rough notes (unfinished) for those who are tackling this project from the Master branch itself. This is messy and unorganized because I took down notes as m00npapi and I progressed but only passively. After I get more experience with front end I think I can write this better.
-
-Extra UI TODO's
-
-4. When you swap from tokens to eth it automatically pops up the swap, we probably either want that popup to come a few seconds after the approve (you have to craft the transactions manually and have them sign the raw transaction with the next nonce) OR maybe a second button for the second action.
-5. Display how much liquidity I have am providing / how much locked up I have of each asset or something
-6. Formalize document and repo for an official challenge for scaffold-eth community / program
-
-DEX.test.js TODO:
-
-7. See TODO: in DEX.test.js
-
-</details>
-
 ## 🚩 **Challenge 3: Minimum Viable Exchange**
 
 This challenge will help you build/understand a simple decentralized exchange, with one token-pair (ERC20 BALLOONS ($BAL) and ETH). This repo is an updated version of the [original tutorial](https://medium.com/@austin_48503/%EF%B8%8F-minimum-viable-exchange-d84f30bd0c90) and challenge repos before it. Please read the intro for a background on what we are building first! **This repo has solutions in it for now, but the challenge is to write the smart contracts yourself of course!**
@@ -68,7 +42,9 @@ Navigate to the Debug Contracts tab and you should see two smart contracts displ
 
 > Below is what your front-end will look like with no implementation code within your smart contracts yet. The buttons will likely break because there are no functions tied to them yet!
 
-<img src="images/emptyUI.png" width = "800">
+> **⭐️ Also note that there is no curve until you uncomment the specific lines of code at the end of `00_deploy_your_contract.js`**.
+
+<img src="images/StartingUI.png" width = "800">
 
 > 🎉 You've made it this far in Scaffold-Eth Challenges 👏🏼 . As things get more complex, it might be good to review the design requirements of the challenge first! Check out the empty DEXTemplate.sol file to see aspects of each function. If you can explain how each function will work with one another, that's great! 😎
 
@@ -333,7 +309,87 @@ Cool beans! Your front-end should be showing something like this now!
 
 Now, a user can just enter the amount of ETH or tokens they want to swap and the chart will display how the price is calculated. The user can also visualize how larger swaps result in more slippage and less output asset.
 
-💸 A user can also deposit and withdraw from the liquidity pool, earning fees
+## 💸 A user can also deposit and withdraw from the liquidity pool, earning fees
+
+### **Checkpoint 7: 💾 Deploy it!** 🛰
+
+📡 Edit the `defaultNetwork` in `packages/hardhat/hardhat.config.js`, as well as `targetNetwork` in `packages/react-app/src/App.jsx`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
+
+## 🔶 Infura
+
+> You will need to get a key from infura.io and paste it into constants.js in packages/react-app/src:
+
+![nft13](https://user-images.githubusercontent.com/526558/124387174-d83c0180-dcb3-11eb-989e-d58ba15d26db.png)
+
+👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**
+
+🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying.
+
+🛰 Use an [instantwallet.io](https://instantwallet.io) to fund your **deployer address** (run `yarn account` again to view balances)
+
+> 🚀 Run `yarn deploy` to deploy to your public network of choice (😅 wherever you can get ⛽️ gas)
+
+🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
+
+👮 Your token contract source needs to be **verified**... (source code publicly available on the block explorer)
+
+---
+
+### **Checkpoint 8: 📜 Contract Verification**
+
+Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
+
+![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
+
+> Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
+
+This will be the URL you submit to [SpeedRun](https://speedrunethereum.com).
+
+---
+
+### **Checkpoint 9: 🚢 Ship it! 🚁**
+
+📦 Run `yarn build` to package up your frontend.
+
+💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
+
+🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
+
+---
+
+> 💬 Problems, questions, comments on the stack? Post them to the [🏗 scaffold-eth developers chat](https://t.me/joinchat/F7nCRK3kI93PoCOk)
+
+---
+
+# 🙅🏻‍♂️ 🚧 General public ignore below, these are just notes for devs to fix about this challenge!
+
+### 🚨 STEVE/M00NPAPI/WHOEVER TODO: Aspects to Check Before Finalizing
+
+<details markdown='1'><summary>👨🏻‍🏫 TO DO List</summary>
+
+1. Front End looks like it is being mainly derived from DEX.jsx (which was taken from an old repo - challenge-3-dex from scaffold eth repo). We simply connected and routed what was needed and it started to work. Since it is importing from there, my guess is that when the smart contracts are blank, it will display the front end (buttons and all). If you click on a button that you know doesn't line up with a function from the smart contracts, then an error will arise in your webpage. **Could be worthwhile to do a better deep dive into front-end with someone who knows front-end** This may be why it is a bit clunky too!
+
+2. The liquidity mapping is not displaying properly in debug or the front end for some reason. It was working before we started working on the front end. See this line of code. I'm guessing that if it was removed, that the liquidity may start to display right at least in the debug tab. The odd thing is that sometimes it works, and other times it does not.
+
+```
+<Divider> Liquidity ({liquidity ? ethers.utils.formatEther(liquidity) : "none"}):</Divider>
+```
+
+3. Archive the rough notes (unfinished) for those who are tackling this project from the Master branch itself. This is messy and unorganized because I took down notes as m00npapi and I progressed but only passively. After I get more experience with front end I think I can write this better.
+
+Extra UI TODO's
+
+4. When you swap from tokens to eth it automatically pops up the swap, we probably either want that popup to come a few seconds after the approve (you have to craft the transactions manually and have them sign the raw transaction with the next nonce) OR maybe a second button for the second action.
+5. Display how much liquidity I have am providing / how much locked up I have of each asset or something
+6. Formalize document and repo for an official challenge for scaffold-eth community / program
+
+DEX.test.js TODO:
+
+7. See TODO: in DEX.test.js
+
+</details>
+
+---
 
 ### 🚨TODO: STEVE - ARCHIVE THIS TOGGLE SECTION AS PER TO DO LIST AT TOP OF THIS DOCUMENT
 
@@ -470,53 +526,3 @@ There you will see the debug code blob below it, it is here where you will outli
 Your front-end should now load accordingly!
 
 </details>
-
----
-
-### **Checkpoint 7: 💾 Deploy it!** 🛰
-
-📡 Edit the `defaultNetwork` in `packages/hardhat/hardhat.config.js`, as well as `targetNetwork` in `packages/react-app/src/App.jsx`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
-
-## 🔶 Infura
-
-> You will need to get a key from infura.io and paste it into constants.js in packages/react-app/src:
-
-![nft13](https://user-images.githubusercontent.com/526558/124387174-d83c0180-dcb3-11eb-989e-d58ba15d26db.png)
-
-👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**
-
-🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying.
-
-🛰 Use an [instantwallet.io](https://instantwallet.io) to fund your **deployer address** (run `yarn account` again to view balances)
-
-> 🚀 Run `yarn deploy` to deploy to your public network of choice (😅 wherever you can get ⛽️ gas)
-
-🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
-
-👮 Your token contract source needs to be **verified**... (source code publicly available on the block explorer)
-
----
-
-### **Checkpoint 8: 📜 Contract Verification**
-
-Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
-
-![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
-
-> Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
-
-This will be the URL you submit to [SpeedRun](https://speedrunethereum.com).
-
----
-
-### **Checkpoint 9: 🚢 Ship it! 🚁**
-
-📦 Run `yarn build` to package up your frontend.
-
-💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
-
-🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
-
----
-
-> 💬 Problems, questions, comments on the stack? Post them to the [🏗 scaffold-eth developers chat](https://t.me/joinchat/F7nCRK3kI93PoCOk)
