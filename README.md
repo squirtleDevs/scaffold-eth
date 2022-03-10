@@ -22,7 +22,7 @@ Pull down the appropriate challenge repo/branch to get started.
 
 ```bash
 git clone https://github.com/squirtleDevs/scaffold-eth.git challenge-3-single-pool-dex
-cd scaffold-eth
+cd challenge-3-single-pool-dex
 git checkout challenge-3-single-pool-dex
 yarn install
 ```
@@ -166,10 +166,7 @@ Now, try to edit your DEX.sol smart contract and bring in a price function!
         uint256 xReserves,
         uint256 yReserves
     ) public view returns (uint256 yOutput) {
-        uint256 xInputWithFee = xInput.mul(997);
-        uint256 numerator = xInputWithFee.mul(yReserves);
-        uint256 denominator = (xReserves.mul(1000)).add(xInputWithFee);
-        return (numerator / denominator);
+        yOutput = (yReserves - (yReserves * xReserves / (xReserves + (997 * xInput / 1000))));
     }
 
 ```
@@ -226,7 +223,7 @@ Let’s edit the DEX.sol smart contract and add two new functions for swapping f
      */
     function ethToToken() public payable returns (uint256 tokenOutput) {
         require(msg.value > 0, "cannot swap 0 ETH");
-        uint256 ethReserve = address(this).balance.sub(msg.value);
+        uint256 ethReserve = address(this).balance - msg.value;
         uint256 token_reserve = token.balanceOf(address(this));
         uint256 tokenOutput = price(msg.value, ethReserve, token_reserve);
 
@@ -271,14 +268,14 @@ Let’s create two new functions that let us deposit and withdraw liquidity. How
 
 ```
     function deposit() public payable returns (uint256 tokensDeposited) {
-        uint256 ethReserve = address(this).balance.sub(msg.value);
+        uint256 ethReserve = address(this).balance - msg.value;
         uint256 tokenReserve = token.balanceOf(address(this));
         uint256 tokenDeposit;
 
-        tokenDeposit = (msg.value.mul(tokenReserve) / ethReserve).add(1);
-        uint256 liquidityMinted = msg.value.mul(totalLiquidity) / ethReserve;
-        liquidity[msg.sender] = liquidity[msg.sender].add(liquidityMinted);
-        totalLiquidity = totalLiquidity.add(liquidityMinted);
+        tokenDeposit = ((msg.value * tokenReserve) / ethReserve) + 1;
+        uint256 liquidityMinted = msg.value * totalLiquidity / ethReserve;
+        liquidity[msg.sender] = liquidity[msg.sender] + liquidityMinted;
+        totalLiquidity = totalLiquidity + liquidityMinted;
 
         require(token.transferFrom(msg.sender, address(this), tokenDeposit));
         emit LiquidityProvided(msg.sender, liquidityMinted, msg.value, tokenDeposit);
@@ -291,11 +288,11 @@ Let’s create two new functions that let us deposit and withdraw liquidity. How
         uint256 tokenReserve = token.balanceOf(address(this));
         uint256 ethWithdrawn;
 
-        ethWithdrawn = amount.mul(ethReserve) / totalLiquidity;
+        ethWithdrawn = amount * ethReserve / totalLiquidity;
 
-        uint256 tokenAmount = amount.mul(tokenReserve) / totalLiquidity;
-        liquidity[msg.sender] = liquidity[msg.sender].sub(amount);
-        totalLiquidity = totalLiquidity.sub(amount);
+        uint256 tokenAmount = amount * tokenReserve / totalLiquidity;
+        liquidity[msg.sender] = liquidity[msg.sender] - amount;
+        totalLiquidity = totalLiquidity - amount;
         (bool sent, ) = payable(msg.sender).call{ value: ethWithdrawn }("");
         require(sent, "withdraw(): revert in transferring eth to you!");
         require(token.transfer(msg.sender, tokenAmount));
@@ -331,6 +328,7 @@ Now, a user can just enter the amount of ETH or tokens they want to swap and the
 ### 🥅 Extra Challenge:
 
 - [ ] `approve()` event emission: can you implement this into the event tabs so that it is clear when `approve()` from the `Balloons.sol` contract has been executed?
+- [ ]  When you press the `deposit` button, an approval is automatically created for an amount of Balloons equal to the amount of Eth you are going to send. This only works if the amount of Balloons in the liquidity pool is <= the amount of Eth in the pool. Can you modify the `DEX.jsx` component so that the correct amount of Balloons is always approved?
 
 ### **Checkpoint 7: 💾 Deploy it!** 🛰
 
