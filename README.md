@@ -191,16 +191,16 @@ We use the ratio of the input vs output reserve to calculate the price to swap e
 
 <details markdown='1'><summary>💡 Let's have a more mathematical view of the price function</summary>
 
-Let xInput = x
-Let xReserve = A
-Let yReserve = B
+Let xInput = x<br>
+Let xReserve = A<br>
+Let yReserve = B<br>
 
 Let yOutput = $
 
-xFee = x*(997) (This is a 0.3% fee) 
+xFee = x*(997) (This is a 0.3% fee) <br>
 
-numerator(N) = xFee*(B)
-denominator(D) = 1000*(A) + xFee
+numerator(N) = xFee*(B) <br>
+denominator(D) = 1000*(A) + xFee <br>
 
   $ =  N/D
 
@@ -209,25 +209,25 @@ Example;
 Assuming the DEX has 5 ETH and 5 BAL in it's reserve and
 you decide to swap your 2 ETH for some token.
 
-using:
-  Price to determine $
+using:<br>
+  Price to determine $<br>
 
- Data:
-  x = 2 ETH
-  A = 5 ETH
-  B = 5 BAL
-  xFee = 2*997 = 1994
+ Data:<br>
+  x = 2 ETH<br>
+  A = 5 ETH<br>
+  B = 5 BAL<br>
+  xFee = 2*997 = 1994<br>
 
- Formula:
+ Formula:<br>
    N/D = (xFee*(B)) / (1000*(A) + xFee)
 
-We have that:
-  N/D = (1994*5) / (5000 + 1994)
-      = 9970/6994
-      = 1.4255076
+We have that:<br>
+  N/D = (1994*5) / (5000 + 1994) <br>
+      = 9970/6994<br>
+      = 1.4255076<br>
 
-  Since $ = N/D
-  The ammount of BAL we will recieve will be:
+  Since $ = N/D<br>
+  The ammount of BAL we will recieve will be:<br>
 
     $ = 1.4255 BAL (Approx.) 
 
