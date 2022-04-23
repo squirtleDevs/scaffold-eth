@@ -206,8 +206,8 @@ denominator(D) = 1000*(A) + xFee
 
 Example;
 
-Assuming 5 ETH and 5 BAL reserve
-You decide to swap your 2 ETH for some token
+Assuming the DEX has 5 ETH and 5 BAL in it's reserve and
+you decide to swap your 2 ETH for some token.
 
 using:
   Price to determine $
@@ -223,8 +223,8 @@ using:
 
 We have that:
   N/D = (1994*5) / (5000 + 1994)
-  N/D = 9970/6994
-  N/D = 1.4255076
+      = 9970/6994
+      = 1.4255076
 
   Since $ = N/D
   The ammount of BAL we will recieve will be:
