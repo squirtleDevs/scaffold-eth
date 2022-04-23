@@ -189,7 +189,7 @@ Now, try to edit your DEX.sol smart contract and bring in a price function!
 
 We use the ratio of the input vs output reserve to calculate the price to swap either asset for the other. Let’s deploy this and poke around:
 
-<details markdown='1'><summary>💡 Let's have a more mathmatical view of the price function</summary>
+<details markdown='1'><summary>💡 Let's have a more mathematical view of the price function</summary>
 
 Let xInput = x
 Let xReserve = A
