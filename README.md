@@ -137,7 +137,7 @@ Now when we `yarn deploy --reset` then our contract should be initialized as soo
    // paste in your front-end address here to get balloons on deploy:
    await balloons.transfer(
      "0xe64bAAA0F6012A0F320a262cFe39289bA6cBd0f2",
-     "" + 1 * 10 ** 18
+     "" * 10 ** 18
     );
 ```
 
