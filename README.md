@@ -130,6 +130,17 @@ Now when we `yarn deploy --reset` then our contract should be initialized as soo
 
 - [ ] 🎈 Under the debug tab, does your DEX show 5 ETH and 5 Balloons of liquidity?
 
+
+> 💡 _Hint:_ You don't want to be adding extra 10 Balloons when init is called on deploy in `00_deploy_your_contract.js` file.
+
+```
+   // paste in your front-end address here to get balloons on deploy:
+   await balloons.transfer(
+     "0xe64bAAA0F6012A0F320a262cFe39289bA6cBd0f2",
+     "" * 10 ** 18
+    );
+```
+
 ---
 
 ### ⛳️ **Checkpoint 3: Price** 🤑
@@ -179,6 +190,52 @@ Now, try to edit your DEX.sol smart contract and bring in a price function!
 </details>
 
 We use the ratio of the input vs output reserve to calculate the price to swap either asset for the other. Let’s deploy this and poke around:
+
+<details markdown='1'><summary>💡 Let's have a more mathematical view of the price function</summary>
+
+Let xInput = x<br>
+Let xReserve = A<br>
+Let yReserve = B<br>
+
+Let yOutput = $
+
+xFee = x*(997) (This is a 0.3% fee) <br>
+
+numerator(N) = xFee*(B) <br>
+denominator(D) = 1000*(A) + xFee <br>
+
+  $ =  N/D
+
+Example;
+
+Assuming the DEX has 5 ETH and 5 BAL in it's reserve and
+you decide to swap your 2 ETH for some token.
+
+using:<br>
+  Price to determine $<br>
+
+ Data:<br>
+  x = 2 ETH<br>
+  A = 5 ETH<br>
+  B = 5 BAL<br>
+  xFee = 2*997 = 1994<br>
+
+ Formula:<br>
+   N/D = (xFee*(B)) / (1000*(A) + xFee)
+
+We have that:<br>
+  N/D = (1994*5) / (5000 + 1994) <br>
+      = 9970/6994<br>
+      = 1.4255076<br>
+
+  Since $ = N/D<br>
+  The ammount of BAL we will recieve will be:<br>
+
+    $ = 1.4255 BAL (Approx.) 
+
+PS: This also applies when swaping BAL to ETH.
+
+</details>
 
 ```
 yarn run deploy
